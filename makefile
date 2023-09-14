@@ -13,8 +13,8 @@ SOURCES = $(wildcard $(SRC_DIR)/*.cpp)
 # オブジェクトファイル
 OBJECTS = $(addprefix $(BUILD_DIR)/,$(notdir $(SOURCES:.cpp=.o)))
 
-# カレントディレクトリの名前をPowerShellで取得
-CURRENT_DIR_NAME := $(shell powershell -Command "(Get-Item -Path .).Name")
+# カレントディレクトリの名前を取得
+CURRENT_DIR_NAME := $(notdir $(CURDIR))
 
 # ビルドディレクトリ
 BUILD_DIR = build
@@ -27,7 +27,7 @@ INCLUDE_DIR = include
 
 # clean ルール
 clean:
-	rm -rf $(BUILD_DIR) $(CURRENT_DIR_NAME)
+	rm -rf $(BUILD_DIR) $(EXECUTABLE)
 
 # ビルドディレクトリ作成ルール
 $(BUILD_DIR):
@@ -40,7 +40,7 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp | $(BUILD_DIR)
 # ビルドルール
 $(EXECUTABLE): $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $^ -o $@
-	./$@ 
+	./$@
 
 # all ターゲット (デフォルトターゲット)
 all: $(EXECUTABLE)
