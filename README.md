@@ -2,4 +2,4 @@
 Using this source code will set up your C++ environment.
 
 # Usage
-You can start running C++ by using the command make re.
+You can start running C++ by using the command `make re`.
